@@ -55,3 +55,19 @@
     - handler: redirect
       config:
         to: https://dev.thielker.net/login
+
+
+- id: "ory:web:public"
+  upstream:
+    preserve_host: true
+    url: "http://web-nextjs:4422"
+  match:
+    url: "https://dev.thielker.net/<{!kratos,!auth,_next/**,[!auth,!kratos]**.css,[!auth,!kratos]**.js,[!auth,!kratos]**.png,}>"
+    methods:
+      - GET
+  authenticators:
+    - handler: noop
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop

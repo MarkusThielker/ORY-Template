@@ -78,6 +78,18 @@ services:
       - intranet
 
 
+  web-nextjs:
+    build: ../../web-nextjs
+    ports:
+      - "4422:4422"
+    restart: unless-stopped
+    command: run dev
+    environment:
+      - PORT=4422
+    networks:
+      - intranet
+
+
   mailslurper:
     image: oryd/mailslurper:latest-smtps
     ports:
